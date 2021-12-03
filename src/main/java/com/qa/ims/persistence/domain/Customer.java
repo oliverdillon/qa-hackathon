@@ -3,18 +3,21 @@ package com.qa.ims.persistence.domain;
 public class Customer {
 
 	private Long id;
-	private String firstName;
-	private String surname;
+	private String name;
+	private String emailAddress;
+	private String phoneNumber;
 
-	public Customer(String firstName, String surname) {
-		this.setFirstName(firstName);
-		this.setSurname(surname);
+	public Customer(String name, String emailAddress,String phoneNumber) {
+		this.setName(name);
+		this.setEmailAddress(emailAddress);
+		this.setPhoneNumber(phoneNumber);
 	}
 
-	public Customer(Long id, String firstName, String surname) {
+	public Customer(Long id, String name, String emailAddress,String phoneNumber ) {
 		this.setId(id);
-		this.setFirstName(firstName);
-		this.setSurname(surname);
+		this.setName(name);
+		this.setEmailAddress(emailAddress);
+		this.setPhoneNumber(phoneNumber);
 	}
 
 	public Long getId() {
@@ -25,34 +28,46 @@ public class Customer {
 		this.id = id;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getSurname() {
-		return surname;
+
+	public String getEmailAddress() {
+		return this.emailAddress;
 	}
 
-	public void setSurname(String surname) {
-		this.surname = surname;
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
 	}
+
+	public String getPhoneNumber() {
+		return this.phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	
+
 
 	@Override
 	public String toString() {
-		return "id:" + id + " first name:" + firstName + " surname:" + surname;
+		return "id:" + id + " name:" + name + " email address:" + emailAddress + " phone number:" + phoneNumber;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((surname == null) ? 0 : surname.hashCode());
+		result = prime * result + ((emailAddress == null) ? 0 : emailAddress.hashCode());
+		result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
 		return result;
 	}
 
@@ -65,20 +80,25 @@ public class Customer {
 		if (getClass() != obj.getClass())
 			return false;
 		Customer other = (Customer) obj;
-		if (getFirstName() == null) {
-			if (other.getFirstName() != null)
+		if (getName() == null) {
+			if (other.getName() != null)
 				return false;
-		} else if (!getFirstName().equals(other.getFirstName()))
+		} else if (!getName().equals(other.getName()))
 			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (surname == null) {
-			if (other.surname != null)
+		if (getEmailAddress() == null) {
+			if (other.getEmailAddress() != null)
 				return false;
-		} else if (!surname.equals(other.surname))
+		} else if (!getEmailAddress().equals(other.getEmailAddress()))
+			return false;
+		if (getPhoneNumber() == null) {
+			if (other.getPhoneNumber() != null)
+				return false;
+		} else if (!getPhoneNumber().equals(other.getPhoneNumber()))
 			return false;
 		return true;
 	}

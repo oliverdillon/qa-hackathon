@@ -17,23 +17,20 @@ import java.util.regex.Pattern;
  * Takes in customer details for CRUD functionality
  *
  */
-public class CustomerController implements CrudController<Customer> {
+public class CustomerController{
 
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	private CustomerDAO customerDAO;
-	private Utils utils;
 
-	public CustomerController(CustomerDAO customerDAO, Utils utils) {
+	public CustomerController(CustomerDAO customerDAO) {
 		super();
 		this.customerDAO = customerDAO;
-		this.utils = utils;
 	}
 
 	/**
 	 * Reads all customers to the logger
 	 */
-	@Override
 	public List<Customer> readAll() {
 		List<Customer> customers = customerDAO.readAll();
 		for (Customer customer : customers) {
@@ -45,24 +42,12 @@ public class CustomerController implements CrudController<Customer> {
 	/**
 	 * Creates a customer by taking in user input
 	 */
-	@Override
-	public Customer create() {
-		LOGGER.info("Please enter a first name");
-		String firstName = utils.getString();
-		LOGGER.info("Please enter a surname");
-		String surname = utils.getString();
+	public Customer create(String firstName, String surname, String emailAddress, String phoneNumber ) {
 		String name = firstName + ' ' + surname;
-		LOGGER.info("Please enter an email Address");
-		String emailAddress = utils.getString();
 		boolean correctEmailFormat = CheckEmailFormat(emailAddress);
-		while(!correctEmailFormat){
+		if(!correctEmailFormat){
 			LOGGER.error("Error - Please enter a Valid Email Address");
-			LOGGER.info("Please enter an email Address");
-			emailAddress = utils.getString();
-			correctEmailFormat = CheckEmailFormat(emailAddress);
 		}
-		LOGGER.info("Please enter an Phone Number");
-		String phoneNumber = utils.getString();
 		Customer customer = customerDAO.create(new Customer(name, emailAddress,phoneNumber));
 		LOGGER.info("Customer created");
 		return customer;
@@ -78,26 +63,12 @@ public class CustomerController implements CrudController<Customer> {
 	/**
 	 * Updates an existing customer by taking in user input
 	 */
-	@Override
-	public Customer update() {
-		LOGGER.info("Please enter the id of the customer you would like to update");
-		Long id = utils.getLong();
-		LOGGER.info("Please enter a first name");
-		String firstName = utils.getString();
-		LOGGER.info("Please enter a surname");
-		String surname = utils.getString();
+	public Customer update(Long id, String firstName, String surname, String emailAddress, String phoneNumber) {
 		String name = firstName + ' ' + surname;
-		LOGGER.info("Please enter an email Address");
-		String emailAddress = utils.getString();
 		boolean correctEmailFormat = CheckEmailFormat(emailAddress);
-		while(!correctEmailFormat){
+		if(!correctEmailFormat){
 			LOGGER.error("Error - Please enter a Valid Email Address");
-			LOGGER.info("Please enter an email Address");
-			emailAddress = utils.getString();
-			correctEmailFormat = CheckEmailFormat(emailAddress);
 		}
-		LOGGER.info("Please enter an Phone Number");
-		String phoneNumber = utils.getString();
 		Customer customer = customerDAO.update(new Customer(id, name, emailAddress,phoneNumber));
 		LOGGER.info("Customer created");
 		return customer;
@@ -108,10 +79,7 @@ public class CustomerController implements CrudController<Customer> {
 	 * 
 	 * @return
 	 */
-	@Override
-	public int delete() {
-		LOGGER.info("Please enter the id of the customer you would like to delete");
-		Long id = utils.getLong();
+	public int delete(Long id) {
 		return customerDAO.delete(id);
 	}
 

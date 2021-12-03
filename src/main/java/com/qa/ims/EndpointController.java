@@ -7,6 +7,8 @@ import com.qa.ims.persistence.dao.CustomerDAO;
 import com.qa.ims.persistence.dao.ItemDAO;
 import com.qa.ims.persistence.dao.OrderDAO;
 import com.qa.ims.persistence.domain.Customer;
+import com.qa.ims.persistence.domain.Item;
+import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.Utils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,18 +46,47 @@ public class EndpointController {
     }
 
     @GetMapping("/order/create")
-    public Greeting orderCreate(@RequestBody CustomerSpring newOrderSpring) {
-        return new Greeting(counter.incrementAndGet(), String.format(template));
+    public OrderSpring orderCreate(@RequestBody OrderSpring newOrderSpring) {
+        return newOrderSpring;
     }
 
     @GetMapping("/order/update")
-    public Greeting orderUpdate(@RequestBody CustomerSpring newOrderSpring) {
-        return new Greeting(counter.incrementAndGet(), String.format(template));
+    public OrderSpring orderUpdate(@RequestBody OrderSpring newOrderSpring) {
+        this.orders.update();
+        return newOrderSpring;
     }
 
     @GetMapping("/order/delete")
-    public Greeting orderDelete(@RequestBody OrderSpring newOrderSpring) {
-        return new Greeting(counter.incrementAndGet(), String.format(template));
+    public OrderSpring orderDelete(@RequestBody OrderSpring newOrderSpring) {
+        this.orders.delete();
+        return newOrderSpring;
+    }
+
+    @GetMapping("/order/all")
+    public List<Order> orderView(@RequestBody OrderSpring something) {
+        return this.orders.readAll();
+    }
+
+    @GetMapping("/item/create")
+    public ItemSpring itemCreate(@RequestBody ItemSpring newItemSpring) {
+        return newItemSpring;
+    }
+
+    @GetMapping("/item/update")
+    public ItemSpring itemUpdate(@RequestBody ItemSpring newItemSpring) {
+        this.items.update();
+        return newItemSpring;
+    }
+
+    @GetMapping("/item/delete")
+    public ItemSpring itemDelete(@RequestBody ItemSpring newItemSpring) {
+        this.items.delete();
+        return newItemSpring;
+    }
+
+    @GetMapping("/item/all")
+    public List<Item> itemView(@RequestBody String something) {
+        return this.items.readAll();
     }
 
     @GetMapping("/customer/create")

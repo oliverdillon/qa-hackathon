@@ -1,7 +1,7 @@
 package com.qa.ims.persistence.domain;
 
 public class Item {
-    private Integer ItemID;
+    private Long ItemID;
 	private String Name;
 	private Double Price;
     
@@ -10,13 +10,13 @@ public class Item {
 		this.setPrice(price);
 	}
 
-	public Item(Integer id, String name, Double price) {
+	public Item(Long id, String name, Double price) {
 		this.setItemID(id);
 		this.setName(name);
 		this.setPrice(price);
 	}
 
-    public void setItemID(Integer ItemID){
+    public void setItemID(Long ItemID){
          this.ItemID = ItemID;
     }
     public void setName(String name){
@@ -26,7 +26,7 @@ public class Item {
         this.Price = price;
     }
 
-    public Integer getItemID(){
+    public Long getItemID(){
         return ItemID;
     }
     public String getName(){

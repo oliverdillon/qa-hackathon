@@ -18,7 +18,7 @@ USE `ims` ;
 -- Table `ims`.`Customer`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ims`.`Customer` (
-  `CustomerID` INT NULL AUTO_INCREMENT,
+  `CustomerID` INT NOT NULL AUTO_INCREMENT,
   `Phone Number` VARCHAR(255) NULL,
   `Email Address` VARCHAR(255) NULL,
   `Name` VARCHAR(255) NULL,

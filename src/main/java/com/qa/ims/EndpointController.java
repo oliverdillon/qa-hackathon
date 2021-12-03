@@ -11,6 +11,7 @@ import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.Utils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,10 +57,10 @@ public class EndpointController {
         return newOrderSpring;
     }
 
-    @GetMapping("/order/delete")
-    public OrderSpring orderDelete(@RequestBody OrderSpring newOrderSpring) {
+    @GetMapping("/order/delete/{id}")
+    public String orderDelete(@PathVariable Long id) {
         this.orders.delete();
-        return newOrderSpring;
+        return "{\"Success\":\"Object Deleted\"}";
     }
 
     @GetMapping("/order/all")
@@ -78,10 +79,10 @@ public class EndpointController {
         return newItemSpring;
     }
 
-    @GetMapping("/item/delete")
-    public ItemSpring itemDelete(@RequestBody ItemSpring newItemSpring) {
+    @GetMapping("/item/delete/{id}")
+    public String itemDelete(@PathVariable Long id) {
         this.items.delete();
-        return newItemSpring;
+        return "{\"Success\":\"Object Deleted\"}";
     }
 
     @GetMapping("/item/all")
@@ -96,10 +97,10 @@ public class EndpointController {
         return newCustomerSpring;
     }
 
-    @GetMapping("/customer/delete")
-    public CustomerSpring customerDelete(@RequestBody CustomerSpring newCustomerSpring) {
-        this.customers.delete(newCustomerSpring.getId());
-        return newCustomerSpring;
+    @GetMapping("/customer/delete/{id}")
+    public String customerDelete(@PathVariable Long id) {
+        this.customers.delete(id);
+        return "{\"Success\":\"Object Deleted\"}";
     }
 
     @GetMapping("/customer/update")

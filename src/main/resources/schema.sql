@@ -41,11 +41,11 @@ ENGINE = InnoDB;
 -- Table `ims`.`Order`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ims`.`Order` (
-  `orderID` INT NOT NULL AUTO_INCREMENT,
-  `orderItemsID` INT NULL,
+  `OrderID` INT NOT NULL AUTO_INCREMENT,
   `CustomerID` INT NULL,
+  `TotalCost` DECIMAL(2) NULL,
   PRIMARY KEY (`orderID`),
-  INDEX `customerID_idx` (`CustomerID` ASC) VISIBLE,
+  INDEX `customerID_idx` (`CustomerID` ASC),
   CONSTRAINT `orderItemsID`
     FOREIGN KEY (`orderID`)
     REFERENCES `ims`.`Order` (`orderItemsID`)
@@ -67,8 +67,8 @@ CREATE TABLE IF NOT EXISTS `ims`.`OrdersItems` (
   `orderID` INT NULL,
   `itemID` INT NULL,
   PRIMARY KEY (`ordersItemsID`),
-  INDEX `orderID_idx` (`orderID` ASC) VISIBLE,
-  INDEX `itemID_idx` (`itemID` ASC) VISIBLE,
+  INDEX `orderID_idx` (`orderID` ASC),
+  INDEX `itemID_idx` (`itemID` ASC) ,
   CONSTRAINT `orderID`
     FOREIGN KEY (`orderID`)
     REFERENCES `ims`.`Order` (`orderID`)

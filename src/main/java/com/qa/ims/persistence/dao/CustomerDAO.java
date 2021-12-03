@@ -21,9 +21,10 @@ public class CustomerDAO implements Dao<Customer> {
 	@Override
 	public Customer modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long id = resultSet.getLong("id");
-		String firstName = resultSet.getString("first_name");
-		String surname = resultSet.getString("surname");
-		return new Customer(id, firstName, surname);
+		String firstName = resultSet.getString("Name");
+		String emailAddress = resultSet.getString("Email Address");
+		String phoneNumber = resultSet.getString("Phone Number");
+		return new Customer(id, firstName, emailAddress,phoneNumber);
 	}
 
 	/**
@@ -71,8 +72,9 @@ public class CustomerDAO implements Dao<Customer> {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
 						.prepareStatement("INSERT INTO customer(Name, Email Address, Phone Number) VALUES (?, ?,?)");) {
-			statement.setString(1, customer.getFirstName());
-			statement.setString(2, customer.getSurname());
+			statement.setString(1, customer.getName());
+			statement.setString(2, customer.getEmailAddress());
+			statement.setString(3, customer.getPhoneNumber());
 			statement.executeUpdate();
 			return readLatest();
 		} catch (Exception e) {
@@ -109,10 +111,11 @@ public class CustomerDAO implements Dao<Customer> {
 	public Customer update(Customer customer) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("UPDATE customer SET first_name = ?, surname = ? WHERE id = ?");) {
-			statement.setString(1, customer.getFirstName());
-			statement.setString(2, customer.getSurname());
-			statement.setLong(3, customer.getId());
+						.prepareStatement("UPDATE customer SET Name = ?, 'Email Address' = ?, 'Phone Number'=? WHERE id = ?");) {
+			statement.setString(1, customer.getName());
+			statement.setString(2, customer.getEmailAddress());
+			statement.setString(3, customer.getPhoneNumber());
+			statement.setLong(4, customer.getId());
 			statement.executeUpdate();
 			return read(customer.getId());
 		} catch (Exception e) {

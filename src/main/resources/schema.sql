@@ -18,7 +18,7 @@ USE `ims` ;
 -- Table `ims`.`Customer`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ims`.`Customer` (
-  `CustomerID` INT NOT NULL,
+  `CustomerID` INT NOT NULL AUTO_INCREMENT,
   `Phone Number` VARCHAR(255) NULL,
   `Email Address` VARCHAR(255) NULL,
   `Name` VARCHAR(255) NULL,
@@ -30,7 +30,7 @@ ENGINE = InnoDB;
 -- Table `ims`.`Item`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ims`.`Item` (
-  `ItemID` INT NOT NULL,
+  `ItemID` INT NOT NULL AUTO_INCREMENT,
   `Name` VARCHAR(255) NULL,
   `Price` DECIMAL(2) NULL,
   PRIMARY KEY (`ItemID`))
@@ -41,10 +41,9 @@ ENGINE = InnoDB;
 -- Table `ims`.`Order`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ims`.`Order` (
-  `orderID` INT NOT NULL,
+  `orderID` INT NOT NULL AUTO_INCREMENT,
   `CustomerID` INT NULL,
   `TotalPrice` DECIMAL(2) NULL,
-  `Ordercol` VARCHAR(45) NULL,
   PRIMARY KEY (`orderID`),
   INDEX `customerID_idx` (`CustomerID` ASC) VISIBLE,
   CONSTRAINT `fk_customerID`
@@ -59,7 +58,7 @@ ENGINE = InnoDB;
 -- Table `ims`.`OrdersItems`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ims`.`OrdersItems` (
-  `ordersItemsID` INT NOT NULL,
+  `ordersItemsID` INT NOT NULL AUTO_INCREMENT,
   `orderID` INT NULL,
   `itemID` INT NULL,
   PRIMARY KEY (`ordersItemsID`),

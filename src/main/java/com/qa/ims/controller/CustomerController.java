@@ -80,6 +80,7 @@ public class CustomerController implements CrudController<Customer> {
 	 */
 	@Override
 	public Customer update() {
+		LOGGER.info("Please enter the id of the customer you would like to update");
 		LOGGER.info("Please enter a first name");
 		String firstName = utils.getString();
 		LOGGER.info("Please enter a surname");

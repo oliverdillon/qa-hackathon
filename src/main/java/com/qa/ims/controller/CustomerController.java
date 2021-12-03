@@ -81,6 +81,7 @@ public class CustomerController implements CrudController<Customer> {
 	@Override
 	public Customer update() {
 		LOGGER.info("Please enter the id of the customer you would like to update");
+		Long id = utils.getLong();
 		LOGGER.info("Please enter a first name");
 		String firstName = utils.getString();
 		LOGGER.info("Please enter a surname");
@@ -97,7 +98,7 @@ public class CustomerController implements CrudController<Customer> {
 		}
 		LOGGER.info("Please enter an Phone Number");
 		String phoneNumber = utils.getString();
-		Customer customer = customerDAO.create(new Customer(name, emailAddress,phoneNumber));
+		Customer customer = customerDAO.update(new Customer(id, name, emailAddress,phoneNumber));
 		LOGGER.info("Customer created");
 		return customer;
 	}

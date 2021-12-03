@@ -87,7 +87,7 @@ public class CustomerDAO implements Dao<Customer> {
 	@Override
 	public Customer read(Long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement("SELECT * FROM customers WHERE CustomerID = ?");) {
+				PreparedStatement statement = connection.prepareStatement("SELECT * FROM customer WHERE CustomerID = ?");) {
 			statement.setLong(1, id);
 			try (ResultSet resultSet = statement.executeQuery();) {
 				resultSet.next();
@@ -111,7 +111,7 @@ public class CustomerDAO implements Dao<Customer> {
 	public Customer update(Customer customer) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("UPDATE customer SET Name = ?, 'Email Address' = ?, 'Phone Number'=? WHERE CustomerID = ?");) {
+						.prepareStatement("UPDATE customer SET Name = ?, `Email Address` = ?, `Phone Number`=? WHERE CustomerID = ?");) {
 			statement.setString(1, customer.getName());
 			statement.setString(2, customer.getEmailAddress());
 			statement.setString(3, customer.getPhoneNumber());

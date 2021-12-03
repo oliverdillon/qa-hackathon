@@ -18,7 +18,7 @@ USE `ims` ;
 -- Table `ims`.`Customer`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ims`.`Customer` (
-  `CustomerID` INT NOT NULL,
+  `CustomerID` INT NULL AUTO_INCREMENT,
   `Phone Number` VARCHAR(255) NULL,
   `Email Address` VARCHAR(255) NULL,
   `Name` VARCHAR(255) NULL,
@@ -30,9 +30,9 @@ ENGINE = InnoDB;
 -- Table `ims`.`Item`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ims`.`Item` (
-  `ItemID` INT NOT NULL,
-  `Name` VARCHAR(255) NULL,
-  `Price` DECIMAL(2) NULL,
+  `ItemID` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(255) NOT NULL,
+  `Price` DECIMAL(2) NOT NULL,
   PRIMARY KEY (`ItemID`))
 ENGINE = InnoDB;
 
@@ -41,12 +41,17 @@ ENGINE = InnoDB;
 -- Table `ims`.`Order`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ims`.`Order` (
-  `orderID` INT NOT NULL,
+  `orderID` INT NOT NULL AUTO_INCREMENT,
+  `orderItemsID` INT NULL,
   `CustomerID` INT NULL,
-  `TotalPrice` INT NULL,
   PRIMARY KEY (`orderID`),
   INDEX `customerID_idx` (`CustomerID` ASC) VISIBLE,
-  CONSTRAINT `fk_customerID`
+  CONSTRAINT `orderItemsID`
+    FOREIGN KEY (`orderID`)
+    REFERENCES `ims`.`Order` (`orderItemsID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `customerID`
     FOREIGN KEY (`CustomerID`)
     REFERENCES `ims`.`Customer` (`CustomerID`)
     ON DELETE NO ACTION
@@ -58,18 +63,18 @@ ENGINE = InnoDB;
 -- Table `ims`.`OrdersItems`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ims`.`OrdersItems` (
-  `ordersItemsID` INT NOT NULL,
+  `ordersItemsID` INT NOT NULL AUTO_INCREMENT,
   `orderID` INT NULL,
   `itemID` INT NULL,
   PRIMARY KEY (`ordersItemsID`),
   INDEX `orderID_idx` (`orderID` ASC) VISIBLE,
   INDEX `itemID_idx` (`itemID` ASC) VISIBLE,
-  CONSTRAINT `fk_orderID`
+  CONSTRAINT `orderID`
     FOREIGN KEY (`orderID`)
     REFERENCES `ims`.`Order` (`orderID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_itemID`
+  CONSTRAINT `itemID`
     FOREIGN KEY (`itemID`)
     REFERENCES `ims`.`Item` (`ItemID`)
     ON DELETE NO ACTION

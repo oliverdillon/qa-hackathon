@@ -12,6 +12,11 @@ public class Order {
         this.totalPrice = 0.0;
     }
 
+    public Order(Long customerId, Double totalPrice) {
+        this.customerId = customerId;
+        this.totalPrice = totalPrice;
+    }
+
     public void setOrderID(Long orderId) {
         this.orderId = orderId;
     }
